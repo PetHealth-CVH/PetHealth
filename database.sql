@@ -2,6 +2,14 @@
 
 create database LojaPet;
 
+
+create table tb_contato (
+    id_contato serial primary key
+    celular varchar (14) unique not null
+    email int not null
+    foreign key (email) references tb_credenciais(email)
+)
+    
 create table tb_usuarios (
     id_usuario serial primary key,
     credencial serial,
