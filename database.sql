@@ -42,28 +42,22 @@ create table tb_produtos (
 
 );
 
-create table tb_contato (
-    id_contato serial primary key
-    celular varchar (14) unique not null
-    email int not null
-    foreign key (email) references tb_credenciais(email)
-)
-    
 create table tb_usuarios (
     id_usuario serial primary key,
-    credencial serial,
     nome varchar(50) not null,
     sobrenome varchar(50) not null,
     cpf varchar(11) unique not null,
     data_cadastro timestamp defaut NOW,
-    contato serial,
-    endereço serial,
+    contato int,
+    endereco int,
+    endereco_cobranca int,
 
-    -- Aqui ficam as referências desta tabela com outras (FK)
-    foreign key (credencial) references tb_credenciais (id),
-    foreign key (endereco) references tb_enderecos (id),
-    foreign key (contato) references tb_contatos (id)
-)
+    foreign key (endereco_cobranca) references tb_endereco_cobranca (id_endereco_cb),
+    foreign key (contato) references tb_contato (id_contato),
+    foreign key (endereco) references tb_enderecos (id_endereco),
+    foreign key (id_usuario) references tb_pedidos (id_Pedidos)
+);
+
 
 create table tb_credenciais (
     id_credencial serial primary key,
@@ -71,5 +65,13 @@ create table tb_credenciais (
     email varchar not null,
     senha varchar not null,
 
-    foreign key (id_usuario) references tb_usuário(id_usuario)
-)
+    foreign key (id_usuario) references tb_usuarios (id_usuario)
+);
+
+create table tb_contato (
+    id_contato serial primary key,
+    celular varchar(14) unique not null,
+    email int not null,
+
+    foreign key (email) references tb_credenciais (email)
+);
