@@ -16,20 +16,8 @@ create table tb_contato (
 
     foreign key (email) references tb_credenciais(email)
 );
-
-create table tb_usuarios (
+     create table tb_usuarios (
     id_usuario serial primary key,
-
-    
-        
-          
-    
-
-        
-        Expand All
-    
-    @@ -22,7 +30,7 @@ create table tb_usuarios (
-  
     credencial serial,
     nome varchar(50) not null,
     sobrenome varchar(50) not null,
