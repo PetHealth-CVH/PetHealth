@@ -13,17 +13,6 @@ create table tb_enderecos (
     complemento varchar
 );
 
-create table tb_endereco_cobranca (
-    id_endereco_cb serial primary key,
-    cep varchar(9) not null,
-    rua varchar(100) not null,
-    bairro varchar(100), not null,
-    cidade varchar(50) not null,
-    estado varchar(50) not null,
-    numero varchar(10),
-    complemento varchar
-);
-
 create table tb_pedidos (
     id_pedidos serial primary key,
     id_usuario serial unique,
