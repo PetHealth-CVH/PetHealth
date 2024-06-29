@@ -37,16 +37,13 @@ create table tb_usuarios (
     sobrenome varchar(50) not null,
     cpf varchar(11) unique not null,
     data_cadastro timestamp defaut NOW,
-    contato int,
-    endereco int,
-    endereco_cobranca int,
+    id_contato int,
+    id_endereco int,
 
-    foreign key (endereco_cobranca) references tb_endereco_cobranca (id_endereco_cb),
-    foreign key (contato) references tb_contato (id_contato),
-    foreign key (endereco) references tb_enderecos (id_endereco),
+    foreign key (id_contato) references tb_contato (id_contato),
+    foreign key (id_endereco) references tb_enderecos (id_endereco),
     foreign key (id_usuario) references tb_pedidos (id_Pedidos)
 );
-
 
 create table tb_credenciais (
     id_credencial serial primary key,
