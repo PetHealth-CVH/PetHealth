@@ -16,6 +16,9 @@ values ('Ana','Mantovani','12345678900','data_cadastro','id_contato','id_enderec
 insert into tb_credenciais(email, senha)
 values ('ana.mantovani@peth.com.br', 'Password123');
 
+insert into tb_credenciais(email, senha)
+values ('tiallysson@peth.com.br', 'Password345')
+
 -- Registro de endereços
 insert into tb_enderecos(cep, rua, bairro, cidade, estado, numero, completo)
 values ('13800-971','Rua Marciliano','Centro','Mogi Mirim','SP','538','casa');
@@ -56,3 +59,16 @@ values
 -- Registro de pedidos
 insert into tb_pedidos(data_de_pedido, produtos, quantidade, preco)
 values ('29-06-2024','Vermífugo Vermivet Composto 600mg para cães','1','9.90');
+
+-- Atualização de cadastro do usuário a partir da id
+update tb_usuarios set nome = 'Ana Júlia' where id_usuario = 1;
+
+-- Atualização de cadastro de endereços
+update tb_enderecos set rua = '', numero = '', bairro = '', cep = '', cidade = '', estado = '' where id_usuario = 1;
+
+-- Atualização de senha
+update tb_credenciais set senha = 'Xulia@123' where id_usuario = 1;
+
+-- Deletar cadastro de usuários
+delete from tb_usuarios where id_usuario = 2;
+
