@@ -1,3 +1,33 @@
+-- Obtenção do id do registro das tabelas
+select currval(pg_get_serial_sequence('tb_produtos', 'id_produtos')) into id_produtos;
+select currval(pg_get_serial_sequence('tb_enderecos', 'id_endereco')) into id_endereco;
+select currval(pg_get_serial_sequence('tb_pedidos','id_pedidos')) into id_pedidos;
+select currval(pg_get_serial_sequence('tb_usuarios', 'id_usuario')) into id_usuario;
+select currval(pg_get_serial_sequence('tb_credenciais','id_credencial')) into id_credencial;
+select currval(pg_get_serial_sequence('tb_contato','id_contato')) into id_contato;
+
+
+-- Registro de usuários
+insert into tb_usuarios(nome, sobrenome, cpf, data_cadastro, id_contato, id_endereco)
+values ('Ana','Mantovani','12345678900','data_cadastro','id_contato','id_endereco');
+
+-- Aqui terá o caminho de um possível usuário que irá acessar o nosso sistema.
+-- O email e senha serão fictícios
+insert into tb_credenciais(email, senha)
+values ('ana.mantovani@peth.com.br', 'Password123');
+
+insert into tb_credenciais(email, senha)
+values ('tiallysson@peth.com.br', 'Password345')
+
+-- Registro de endereços
+insert into tb_enderecos(cep, rua, bairro, cidade, estado, numero, completo)
+values ('13800-971','Rua Marciliano','Centro','Mogi Mirim','SP','538','casa');
+
+-- Registro de contato
+insert into tb_contato(celular, email)
+values ('+55(19)99887-7665','ana.mantovani@peth.com.br');
+
+-- Registro de produtos
 insert into tb_produtos(nome_do_produto, descricao, preco, quantidade)
 values 
 (
@@ -66,36 +96,20 @@ values
 ),
 
 
--- Obtenção do id do registro das tabelas
-select currval(pg_get_serial_sequence('tb_produtos', 'id_produtos')) into id_produtos;
-select currval(pg_get_serial_sequence('tb_enderecos', 'id_endereco')) into id_endereco;
-select currval(pg_get_serial_sequence('tb_pedidos','id_pedidos')) into id_pedidos;
-select currval(pg_get_serial_sequence('tb_usuarios', 'id_usuario')) into id_usuario;
-select currval(pg_get_serial_sequence('tb_credenciais','id_credencial')) into id_credencial;
-select currval(pg_get_serial_sequence('tb_contato','id_contato')) into id_contato;
+-- Registro de pedidos
+insert into tb_pedidos(data_de_pedido, produtos, quantidade, preco)
+values ('29-06-2024','Vermífugo Vermivet Composto 600mg para cães','1','9.90');
 
---Aqui terá o caminho de um possível usuário que irá acessar o nosso sistema.
---O email e senha serão fictícios
+-- Atualização de cadastro do usuário a partir da id
+update tb_usuarios set nome = 'Ana Júlia' where id_usuario = 1;
 
-insert into tb_credenciais(email, senha)
-values ('ana.mantovani@peth.com.br', 'Password123');
+-- Atualização de cadastro de endereços
+update tb_enderecos set rua = '', numero = '', bairro = '', cep = '', cidade = '', estado = '' where id_usuario = 1;
 
--- registro de usuário
-insert into tb_usuarios(nome, sobrenome, cpf, data_cadastro, id_contato, id_endereco)
-values ('Ana','Mantovani','12345678900','data_cadastro','id_contato','id_endereco');
+-- Atualização de senha
+update tb_credenciais set senha = 'Xulia@123' where id_usuario = 1;
 
--- Registrar uma compra 
-insert into tb_pedidos(quantidade, id_usuario, id_produtos)
-values (1, 1, 1);
-
--- atualizar uma compra
-update tb_pedidos set quantidade = 5, id_produtos = 1 where id_pedidos  = 1;
-
--- excluir uma compra
-delete from tb_pedidos where id_produtos = 1;
-
-
-
-
+-- Deletar cadastro de usuários
+delete from tb_usuarios where id_usuario = 2;
 
 
