@@ -61,3 +61,7 @@ create table tb_contato (
 
     foreign key (email) references tb_credenciais (email)
 );
+
+create table tb_fornecedor (
+    id
+)
