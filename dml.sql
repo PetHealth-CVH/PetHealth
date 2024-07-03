@@ -112,4 +112,6 @@ update tb_credenciais set senha = 'Xulia@123' where id_usuario = 1;
 -- Deletar cadastro de usuários
 delete from tb_usuarios where id_usuario = 2;
 
+-- Atualizar email
+update tb_credenciais set email = 'anajulia.mantovani@peth.com.br' where id_usuario = 1;
 

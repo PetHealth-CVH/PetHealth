@@ -2,6 +2,8 @@
 
 create database LojaPet;
 
+\c LojaPet
+
 create table tb_enderecos (
     id_endereco serial primary key,
     cep varchar(9) not null,
@@ -19,7 +21,6 @@ create table tb_produtos (
     descricao varchar not null,
     quantidade int(100),
     preco numeric(5,2) not null
-
 );
 
 create table tb_pedidos (

@@ -56,3 +56,37 @@ group by p.produtos;
 select id_produtos, nome_produto, descricao, preco
 from tb_produtos
 where preco >= 50 and preco <=100;
+
+-- Selecionar produtos com o preço menor que 50
+select * from tb_produtos
+where preco < 50;
+
+-- Selecionar produtos com o preço menor que 100
+select * from tb_produtos
+where preco < 100;
+
+-- Selecionar produtos com o preço menor que 150
+select * from tb_produtos
+where preco < 150;
+
+-- Selecionar produtos com o preço maior que 50
+select * from tb_produtos
+where preco > 50;
+
+-- Selecionar produtos com o preço maior que 100
+select * from tb_produtos
+where preco > 100;
+
+-- Selecionar produtos com o preço maior que 150
+select * from tb_produtos
+where preco > 150;
+
+
+-- Ordenar produtos por preço
+select * from tb_produtos
+order by preco asc;
+
+select * from tb_produtos
+order by preco desc;
+
+
