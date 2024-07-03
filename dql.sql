@@ -89,4 +89,18 @@ order by preco asc;
 select * from tb_produtos
 order by preco desc;
 
+-- Produtos mais comprados
+select p.nome_produto, sum(pd.quantidade) as total_compras
+from tb_pedidos pd
+join tb_produtos p on pd.id_produtos = p.id_produtos
+group by p.nome_produto
+order by total_comprado desc
+limit 10;
 
+-- Produtos menos comprados
+select p.nome_produto, sum(pd.quantidade) as total_compras
+from tb_pedidos pd
+join tb_produtos p on pd.id_produtos = p.id_produtos
+group by p.nome_produto
+order by total_comprado asc
+limit 10;
