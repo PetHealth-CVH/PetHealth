@@ -89,4 +89,44 @@ order by preco asc;
 select * from tb_produtos
 order by preco desc;
 
+-- Produtos mais comprados
+select p.nome_produto, sum(pd.quantidade) as total_compras
+from tb_pedidos pd
+join tb_produtos p on pd.id_produtos = p.id_produtos
+group by p.nome_produto
+order by total_comprado desc
+limit 10;
+
+-- Produtos menos comprados
+select p.nome_produto, sum(pd.quantidade) as total_compras
+from tb_pedidos pd
+join tb_produtos p on pd.id_produtos = p.id_produtos
+group by p.nome_produto
+order by total_comprado asc
+limit 10;
+
+-- Filtrar por um valor exato
+select * from tb_produtos where preco = '100';
+
+-- Filtrar por um valor diferente
+select * from tb_produtos where preco != '100';
+
+-- Selecionar clientes que residem em um determinado estado
+select * from tb_enderecos where estado in ('São Paulo', 'Rio de Janeiro');
+
+-- Consultar clientes com um determinado nome
+select * from tb_usuarios where nome like 'Ana%';
+
+-- Selecionar clientes que fizeram mais de 5 pedidos
+select * from tb_usuarios where id_usuario in (
+    select id_usuario from tb_pedidos group by id_usuario having count(*) > 5
+)
+
+-- Selecionar clientes que fizeram menos de 5 pedidos
+select * from tb_usuarios where id_usuario in (
+    select id_usuario from tb_pedidos group by id_usuario having count(*) < 5
+)
+
+-- Selecionar todos os pedidos feitos no último mês
+select * from tb_pedidos where data_pedido >= date_sub(curdate(), interval 1 month)
 

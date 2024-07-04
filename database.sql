@@ -23,6 +23,12 @@ create table tb_produtos (
     preco numeric(5,2) not null
 );
 
+
+create table tb_contato (
+    id_contato serial primary key,
+    celular varchar(14) unique not null,
+    email varchar(100) unique,
+ );
 create table tb_pedidos (
     id_pedidos serial primary key,
     id_usuario int,
@@ -62,4 +68,16 @@ create table tb_credenciais (
 
     foreign key (id_usuario) references tb_usuarios (id_usuario),
     constraint fk_email foreign key (email) references tb_contato (email)
+);
+
+create table tb_pedidos (
+    id_pedidos serial primary key,
+    id_usuario serial unique,
+    data_pedido timestamp defaut NOW,
+    id_produtos int not null,
+    quantidade int(100),
+    preco numeric(5,2) not null
+
+    foreign key (id_usuario) references tb_usuarios(id_usuario),
+    foreign key (id_produtos) references tb_produtos(id_produtos)
 );
