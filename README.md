@@ -10,4 +10,4 @@ Bem-vindo ao repositório do projeto Loja Pet, desenvolvido em parceria com a Ne
 * **Andrey** - [Andrey Leone](https://github.com/AndreyLOS8)
 * **Victor** - [Victor Padilha](https://github.com/VictorP4dilha)
 * **Tiallysson** - [Tiallysson Costa](https://github.com/Tiallysson)
-* **Wagner Luan** - [Vagner Luan](https://github.com/wagnerluann)
+* **Wagner Luan** - [Wagner Luan](https://github.com/wagnerluann)
