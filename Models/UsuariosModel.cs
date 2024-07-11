@@ -6,7 +6,7 @@ namespace Models
         public int Id { get; set; } 
         public required string Nome { get; set; }
         public required string Sobrenome { get; set; }
-        public required string Cpf { get; set; }
-        public DateTime Data_cadastro { get; set; }
+        public required long Cpf { get; set; }
+        public DateTime DataCadastro { get; set; }
     }
 }
