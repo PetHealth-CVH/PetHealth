@@ -9,9 +9,25 @@ namespace Controllers
     public class UsuariosControllers : ControllerBase
     {
         [HttpGet("{id}")]
-        public void UsuarioId(Guid id) 
+        public UsuarioResponse UsuarioId(Guid id) 
         {
-
+            return new UsuarioResponse
+            {
+                 Id = 1,
+                    Nome = "Ana Júlia",
+                    Sobrenome = "Mantovani",
+                    Cpf = 12345678900,
+                    DataCadastro = DateTime.Now,
+            },
+            {
+                      {
+                    Id = 2,
+                    Nome = "Victor",
+                    Sobrenome = "Padilha",
+                    Cpf = 98765432100,
+                    DataCadastro = DateTime.Now,
+                }
+            }
         }
         [HttpPost]
         public void Registrar([FromBody] Usuario usuario)
