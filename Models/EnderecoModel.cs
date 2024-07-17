@@ -30,11 +30,11 @@ namespace Models
 
         [Column("cep")]
         [MaxLength(8)]
-        public string CEP {get; set;}
+        public required string CEP {get; set;}
 
         [Column("complemento")]
         [MaxLength(200)]
-        public string Complemento {get; set;}
+        public required string Complemento {get; set;}
 
     }
 }
