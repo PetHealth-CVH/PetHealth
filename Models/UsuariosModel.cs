@@ -23,16 +23,21 @@ namespace Models
 
         [Column("cpf")]
         [MaxLength(11)]
-        public required long Cpf { get; set; }
+        public required string Cpf { get; set; }
 
         [Column("data_cadastro")]
-        public DateTime DataCadastro { get; set; }
+        public DateTime DataCadastro { get; set; } = DateTime.Now;
 
         // Relacionamentos da tb_usuarios = tb_enderecos.id_enderecos
         [ForeignKey("Endereco")]
         [Column("id_endereco")]
         public Guid EnderecoId {get; set;}
-        public Credencial Credencial {get; set;}
         public Endereco Endereco {get; set;}
+
+        [ForeignKey("Credencial")]
+        [Column("id_credencial")]
+        public Guid CredencialId { get; set; }
+        public Credencial Credencial { get; set; }
     }
 }
+
