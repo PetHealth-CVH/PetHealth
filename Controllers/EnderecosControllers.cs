@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using Models.HttpRequests;
 
 namespace Controllers
 {
@@ -14,7 +15,7 @@ namespace Controllers
 
         }
         [HttpPost]
-        public void Registrar([FromBody] Enderecos enderecos)
+        public void Registrar([FromBody] Endereco enderecos)
         {
 
         }

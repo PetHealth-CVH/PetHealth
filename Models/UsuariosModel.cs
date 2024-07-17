@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+// Definição da classe
 namespace Models
 
 {
@@ -11,6 +12,7 @@ namespace Models
         [Column("id_usuario")]
         public Guid Id {get; set;} 
 
+        // Mapeia suas propriedades para colunas em uma tabela de banco de dados.
         [Column("nome")]
         [MaxLength(50)]
         public required string Nome { get; set; }
@@ -21,16 +23,21 @@ namespace Models
 
         [Column("cpf")]
         [MaxLength(11)]
-        public required long Cpf { get; set; }
+        public required string Cpf { get; set; }
 
         [Column("data_cadastro")]
-        public DateTime DataCadastro { get; set; }
+        public DateTime DataCadastro { get; set; } = DateTime.Now;
 
+        // Relacionamentos da tb_usuarios = tb_enderecos.id_enderecos
         [ForeignKey("Endereco")]
         [Column("id_endereco")]
-        public Guid EnderecoId {get; set;} 
-        public Credencial Credencial {get; set;}
+        public Guid EnderecoId {get; set;}
         public Endereco Endereco {get; set;}
 
+        [ForeignKey("Credencial")]
+        [Column("id_credencial")]
+        public Guid CredencialId { get; set; }
+        public Credencial Credencial { get; set; }
     }
 }
+
