@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Storage;
 using Models;
 
 namespace Controllers
@@ -8,30 +9,32 @@ namespace Controllers
     [ApiController]
     public class UsuariosControllers : ControllerBase
     {
-        [HttpGet]
-        public IEnumerable<Usuario> SolicitarUsuarios()
+        [HttpGet("{id}")]
+        public UsuarioResponse UsuarioId(Guid id)
+        {
+            return new UsuarioResponse
+            {
+                Id = 1,
+                Nome = "Ana Júlia",
+                Sobrenome = "Mantovani",
+                Cpf = 12345678900,
+                DataCadastro = DateTime.Now,
+            }
+        }
+        [HttpPost]
+        public void Registrar([FromBody] Usuario usuario)
         {
 
-            List<Usuario> usuarios = new List<Usuario> {
-                new Usuario 
-                {
-                    Id = 1,
-                    Nome = "Ana Júlia",
-                    Sobrenome = "Mantovani",
-                    Cpf = 12345678900,
-                    DataCadastro = DateTime.Now,
-                },
-                new Usuario 
-                {
-                    Id = 2,
-                    Nome = "Victor",
-                    Sobrenome = "Padilha",
-                    Cpf = 98765432100,
-                    DataCadastro = DateTime.Now,
-                }
-            };
+        }
+        [HttpPut("{id}")]
+        public void AtualizarPorId(Guid id)
+        {
 
-            return usuarios;
+        }
+        [HttpDelete("{id}")]
+        public void DeletarPorId(Guid id)
+        {
+
         }
     }
 }
