@@ -28,7 +28,7 @@ namespace Models
 
         [ForeignKey("Endereco")]
         [Column("id_endereco")]
-        public Guid EnderecoId {get; set;}
+        public Guid EnderecoId {get; set;} 
         public Credencial Credencial {get; set;}
         public Endereco Endereco {get; set;}
 
