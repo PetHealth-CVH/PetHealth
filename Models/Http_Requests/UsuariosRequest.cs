@@ -13,10 +13,6 @@ namespace Models.HttpRequests
         public required string Numero {get; set;}
         public required string CEP {get; set;}
         public string? Complemento {get; set;}
-
-        public string CEP {get; set;}
-        public string Complemento {get; set;}
-
     }
     public class Credencial
     {
