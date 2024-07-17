@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+// Definição da classe
 namespace Models
 {
     [Table("tb_enderecos")]
@@ -10,6 +11,7 @@ namespace Models
         [Column("id_enderecos")]
         public Guid Id {get; set;}
 
+        // Mapeia suas propriedades para colunas em uma tabela de banco de dados.
         [Column("estado")]
         public required string Estado {get; set;}
 
