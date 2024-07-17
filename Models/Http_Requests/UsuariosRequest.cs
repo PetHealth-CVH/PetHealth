@@ -1,6 +1,10 @@
 namespace Models.HttpRequests
 {
+
     public class Endereco
+
+    public class Endereco 
+
     {
         public required string Estado {get; set;}
         public required string Bairro {get; set;}
@@ -9,6 +13,10 @@ namespace Models.HttpRequests
         public required string Numero {get; set;}
         public required string CEP {get; set;}
         public string? Complemento {get; set;}
+
+        public string CEP {get; set;}
+        public string Complemento {get; set;}
+
     }
     public class Credencial
     {
