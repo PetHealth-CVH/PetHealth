@@ -20,7 +20,8 @@ create table tb_produtos (
     nome_produto varchar(100) not null,
     descricao varchar(255) not null,
     quantidade int not null,
-    preco numeric(5,2) not null
+    preco numeric(5,2) not null,
+    id_fornecedor int unique
 );
 
 
@@ -71,3 +72,12 @@ create table tb_pedidos (
     foreign key (id_usuario) references tb_usuarios(id_usuario),
     foreign key (id_produtos) references tb_produtos(id_produtos)
 );
+
+create table tb_fornecedores {
+    id_fornecedor serial primary key,
+    razao varchar(64) not null,
+    cnpj varchar (14) not null,
+    telefone varchar(12) not null,
+    email varchar(128) not null
+}
+
