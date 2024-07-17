@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Storage;
 using Models;
 
 namespace Controllers
@@ -9,24 +10,15 @@ namespace Controllers
     public class UsuariosControllers : ControllerBase
     {
         [HttpGet("{id}")]
-        public UsuarioResponse UsuarioId(Guid id) 
+        public UsuarioResponse UsuarioId(Guid id)
         {
             return new UsuarioResponse
             {
-                 Id = 1,
-                    Nome = "Ana Júlia",
-                    Sobrenome = "Mantovani",
-                    Cpf = 12345678900,
-                    DataCadastro = DateTime.Now,
-            },
-            {
-                      {
-                    Id = 2,
-                    Nome = "Victor",
-                    Sobrenome = "Padilha",
-                    Cpf = 98765432100,
-                    DataCadastro = DateTime.Now,
-                }
+                Id = 1,
+                Nome = "Ana Júlia",
+                Sobrenome = "Mantovani",
+                Cpf = 12345678900,
+                DataCadastro = DateTime.Now,
             }
         }
         [HttpPost]
@@ -42,7 +34,7 @@ namespace Controllers
         [HttpDelete("{id}")]
         public void DeletarPorId(Guid id)
         {
-            
+
         }
     }
 }
