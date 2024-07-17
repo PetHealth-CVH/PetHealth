@@ -21,10 +21,10 @@ namespace Models
 
         [Column("cpf")]
         [MaxLength(11)]
-        public required long Cpf { get; set; }
+        public required string Cpf { get; set; }
 
         [Column("data_cadastro")]
-        public DateTime DataCadastro { get; set; }
+        public DateTime DataCadastro { get; set; } = DateTime.Now;
 
         [ForeignKey("Endereco")]
         [Column("id_endereco")]
