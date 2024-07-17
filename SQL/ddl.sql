@@ -29,16 +29,6 @@ create table tb_contato (
     celular varchar(14) unique not null,
     email varchar(100) unique,
  );
-create table tb_pedidos (
-    id_pedidos serial primary key,
-    id_usuario int,
-    data_pedido timestamp default NOW(),
-    id_produtos int not null,
-    quantidade int,
-    preco numeric(5,2) not null,
-
-    foreign key (id_produtos) references tb_produtos(id_produtos)
-);
 
 create table tb_usuarios (
     id_usuario serial primary key,
