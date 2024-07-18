@@ -9,6 +9,8 @@ namespace Controllers
     [ApiController]
     public class UsuariosControllers : ControllerBase
     {
+        // Rota "api/UsuariosControllers/{id}"
+        // Ele retorna um objeto UsuarioResponse com informações do usuário com o ID fornecido
         [HttpGet("{id}")]
         public UsuarioResponse UsuarioId(Guid id)
         {
@@ -21,16 +23,25 @@ namespace Controllers
                 DataCadastro = DateTime.Now,
             }
         }
+
+        // Rota "api/UsuariosControllers"
+        // Ele recebe um objeto Usuario no corpo da solicitação e registra um novo usuário
         [HttpPost]
         public void Registrar([FromBody] Usuario usuario)
         {
 
         }
+
+        // Rota "api/UsuariosControllers/{id}"
+        // Ele atualiza as informações do usuário com o ID fornecido 
         [HttpPut("{id}")]
         public void AtualizarPorId(Guid id)
         {
 
         }
+        
+        // Rota "api/UsuariosControllers/{id}"
+        // Ele deleta o usuário com o ID fornecido
         [HttpDelete("{id}")]
         public void DeletarPorId(Guid id)
         {

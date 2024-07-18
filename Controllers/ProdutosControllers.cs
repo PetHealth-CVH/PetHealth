@@ -8,9 +8,12 @@ namespace Controllers
     [ApiController]
     public class ProdutosControllers : ControllerBase
     {
+        // Rota "api/ProdutosControllers"
+        // Ele retorna uma lista de objetos Produtos, cada um representando um produto
         [HttpGet]
         public IEnumerable<Produtos> SolicitarProdutos()
         {
+                // Cria uma lista de produtos
                 List<Produtos> produtos = new List<Produtos>
             {
                 new() {
@@ -21,6 +24,7 @@ namespace Controllers
                     Quantidade = 100
                 }
             };
+            // Retorna a lista de produtos
             return produtos;
         } 
     }
