@@ -45,12 +45,6 @@ create table tb_usuarios (
     foreign key (id_usuario) references tb_pedidos (id_usuario)
 );
 
-create table tb_contato (
-    id_contato serial primary key,
-    celular varchar(14) unique not null,
-    email varchar(100) unique
-);
-
 create table tb_credenciais (
     id_credencial serial primary key,
     id_usuario int unique,
