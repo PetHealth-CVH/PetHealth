@@ -12,7 +12,7 @@ namespace Controllers
         [HttpPost("AddContato")]
         public void AddContato([FromBody] ContatoRequest contato)
         {
-            
+            // Aguardando verificação
         }
     }
 }
