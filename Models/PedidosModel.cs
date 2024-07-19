@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+
 // Definição da classe
 namespace Models
 {
@@ -22,6 +23,7 @@ namespace Models
         public double preco {get; set;}
 
         // Relacionamentos da tb_pedidos = tb_usuario.id_usuario
+        [ForeignKey("UsuarioId")]
         [Column("id_usuario")]
         public Guid UsuarioId {get; set;}
         public Usuario usuario {get; set;}
@@ -30,5 +32,6 @@ namespace Models
         [Column("id_produtos")]
         public Guid ProdutosId {get; set;}
         public Produtos produtos {get; set;}
+
     }
 }

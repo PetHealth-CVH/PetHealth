@@ -1,10 +1,6 @@
 namespace Models.HttpRequests
 {
-
     public class Endereco
-
-    public class Endereco 
-
     {
         public required string Estado {get; set;}
         public required string Bairro {get; set;}

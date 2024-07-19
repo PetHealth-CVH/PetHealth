@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Controllers;
 
 // Definição da classe
 namespace Models
@@ -26,5 +27,11 @@ namespace Models
 
         [Column("preco")]
         public required double Preco { get; set; }
+
+        [ForeignKey("tb_fornecedores")]
+        [Column("id_fornecedor")] 
+
+        public Guid ForncedorId {get; set;}
+        public tb_fornecedores Fornecedores {get; set;}
     }
 }
