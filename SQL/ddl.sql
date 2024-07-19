@@ -24,13 +24,6 @@ create table tb_produtos (
     id_fornecedor int unique
 );
 
-
-create table tb_contato (
-    id_contato serial primary key,
-    celular varchar(14) unique not null,
-    email varchar(100) unique,
- );
-
 create table tb_usuarios (
     id_usuario serial primary key,
     nome varchar(50) not null,
@@ -38,7 +31,7 @@ create table tb_usuarios (
     cpf varchar(11) unique not null,
     data_cadastro timestamp defaut NOW(),
     id_contato int,
-    id_endereco int,
+    id_endereco int
 
     foreign key (id_contato) references tb_contato (id_contato),
     foreign key (id_endereco) references tb_enderecos (id_endereco),
@@ -51,9 +44,16 @@ create table tb_credenciais (
     email varchar(100) not null,
     senha varchar(255) not null,
 
-    foreign key (id_usuario) references tb_usuarios (id_usuario),
-    constraint fk_email foreign key (email) references tb_contato (email)
+    foreign key (id_usuario) references tb_usuarios (id_usuario)   
 );
+
+create table tb_contato (
+    id_contato serial primary key,
+    celular varchar(14) unique not null,
+    email varchar(100) unique,
+
+    foreign key (email) references tb_credenciais (email)    
+ );
 
 create table tb_pedidos (
     id_pedidos serial primary key,
