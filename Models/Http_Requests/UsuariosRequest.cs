@@ -24,4 +24,11 @@ namespace Models.HttpRequests
         public required Credencial Credencial { get; set; }
         public required Endereco Endereco { get; set; }
     }
+
+    public class Contato
+    {
+        public string celular {get; set;}
+        public string Email {get; set;}
+        public Credencial email {get; set;}      
+    }
 }
