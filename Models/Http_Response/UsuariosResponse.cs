@@ -19,6 +19,4 @@ namespace Models.HttpResponse
         public required int CEP {get;set;}
         public required string cidade {get;set;}
     }
-
-   
 }
