@@ -2,8 +2,10 @@ using System.Net;
 using Contexts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Models.HttpRequests;
 using Models;
+using Credencial = Models.Credencial;
 
 
 namespace Controllers
@@ -42,7 +44,8 @@ namespace Controllers
             try
             {
                 // Nesse trecho do código é realizado o cadastro o endereço no banco de dados.
-                var enderecos = new Endereco
+                var enderecos = new Models.Endereco
+
                 // Verificar CredencialRequest, não contém referência
                 {
                             Rua = registroUsuario.Endereco.Rua,
@@ -51,7 +54,9 @@ namespace Controllers
                             Bairro = registroUsuario.Endereco.Bairro,
                             Cidade = registroUsuario.Endereco.Cidade,
                             Estado = registroUsuario.Endereco.Estado,
-                            Cep = registroUsuario.Endereco.CEP
+
+                            CEP = registroUsuario.Endereco.CEP
+
                 };
                 _contexto.Enderecos.Add(enderecos);
                 // Após realizar o cadastro do endereço no banco de dados é necessário confirmar a operação.
@@ -64,10 +69,35 @@ namespace Controllers
                 {
                     Nome            = registroUsuario.Nome,
                     Sobrenome       = registroUsuario.Sobrenome,
-                    EnderecoId      = registroUsuario.Endereco.Id
+                    EnderecoId      = registroUsuario.Endereco.Id,
+                    Cpf             = registroUsuario.Cpf
                 };
 
-                //Aguardando verificar erros
+                _contexto.Usuarios.Add(usuario);
+
+                await _contexto.SaveChangesAsync();
+
+                registroUsuario.Id = usuario.Id;
+
+                _contexto.Credenciais.Add(new Credencial
+                {
+                    Email = registroUsuario.Credencial.Email,
+                    Senha = registroUsuario.Credencial.Senha,
+                    UsuarioId = registroUsuario.Id
+                });
+
+                await _contexto.SaveChangesAsync();
+
+                await transacaoCadastro.CommitAsync();
+
+                return StatusCode(201, new { id = registroUsuario.Id});
+                
+            }
+            catch(Exception)
+            {
+                transacaoCadastro.Rollback();
+
+                return StatusCode(500, "Não foi possível realizar o cadastro!");
             }
         }
     }

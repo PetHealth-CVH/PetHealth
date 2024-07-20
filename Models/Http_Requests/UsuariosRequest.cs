@@ -2,6 +2,7 @@ namespace Models.HttpRequests
 {
     public class Endereco
     {
+        public Guid Id {get; set;}
         public required string Estado {get; set;}
         public required string Bairro {get; set;}
         public required string Cidade {get; set;} 
@@ -17,7 +18,9 @@ namespace Models.HttpRequests
     }
     public class UsuarioRequest
     {
-        public required long Cpf { get; set; }
+
+        public Guid Id {get; set;}
+        public required string Cpf { get; set; }
         public DateTime DataCadastro { get; set; }
         public required string Nome { get; set; }
         public required string Sobrenome { get; set; }

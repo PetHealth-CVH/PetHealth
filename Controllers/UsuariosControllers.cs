@@ -4,7 +4,10 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
+using Models.HttpResponse;
 using Models;
+
+
 
 namespace Controllers
 {
@@ -35,12 +38,15 @@ namespace Controllers
                 }
 
                 return Ok(
-                    new UsuarioResponse
+
+                    new UsuariosResponse
+
                     {
                         Id = usuarioQueEstaBuscando.Id,
                         Nome = usuarioQueEstaBuscando.Nome,
                         Sobrenome = usuarioQueEstaBuscando.Sobrenome,
-                        Endereco = new EnderecoResponse
+                        Endereco = new EnderecosResponse
+
                         {
                             Rua = usuarioQueEstaBuscando.Endereco.Rua,
                             Numero = usuarioQueEstaBuscando.Endereco.Numero,
