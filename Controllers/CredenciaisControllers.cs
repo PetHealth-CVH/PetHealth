@@ -45,6 +45,7 @@ namespace Controllers
             {
                 // Nesse trecho do código é realizado o cadastro o endereço no banco de dados.
                 var enderecos = new Models.Endereco
+
                 // Verificar CredencialRequest, não contém referência
                 {
                             Rua = registroUsuario.Endereco.Rua,
@@ -53,7 +54,9 @@ namespace Controllers
                             Bairro = registroUsuario.Endereco.Bairro,
                             Cidade = registroUsuario.Endereco.Cidade,
                             Estado = registroUsuario.Endereco.Estado,
+
                             CEP = registroUsuario.Endereco.CEP
+
                 };
                 _contexto.Enderecos.Add(enderecos);
                 // Após realizar o cadastro do endereço no banco de dados é necessário confirmar a operação.

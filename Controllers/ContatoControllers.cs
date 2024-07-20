@@ -23,7 +23,7 @@ namespace Controllers
         public void AddContato([FromBody] ContatoRequest contato)
         
         {
-            
+            // Aguardando verificação
         }
     }
 }

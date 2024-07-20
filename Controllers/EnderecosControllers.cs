@@ -21,7 +21,9 @@ namespace Controllers
         }
 
         [HttpGet("{idFornecedor}")]
+
         public async Task<ActionResult<EnderecosResponse>> ObterProdutoPelaId(Guid id)
+
         {
             try
             {

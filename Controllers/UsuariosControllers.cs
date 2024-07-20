@@ -1,7 +1,13 @@
 using Contexts;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Models.HttpResponse;
+using Models;
+
+
 
 namespace Controllers
 {
@@ -32,12 +38,15 @@ namespace Controllers
                 }
 
                 return Ok(
+
                     new UsuariosResponse
+
                     {
                         Id = usuarioQueEstaBuscando.Id,
                         Nome = usuarioQueEstaBuscando.Nome,
                         Sobrenome = usuarioQueEstaBuscando.Sobrenome,
                         Endereco = new EnderecosResponse
+
                         {
                             Rua = usuarioQueEstaBuscando.Endereco.Rua,
                             Numero = usuarioQueEstaBuscando.Endereco.Numero,

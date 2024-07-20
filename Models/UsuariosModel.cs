@@ -40,6 +40,6 @@ namespace Models
         public Guid ContatoId {get;set;}
         public Contato Contato {get;set;}
 
-    }
-}
+        }
+}        
 
