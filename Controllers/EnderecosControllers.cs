@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Models;
 using Models.HttpRequests;
+using Models.HttpResponse;
 
 namespace Controllers
 {
@@ -43,10 +44,10 @@ namespace Controllers
                             Bairro = Enderecos.Bairro,
                             Cidade = Enderecos.Cidade,
                             Estado = Enderecos.Estado,
-                            Cep = Enderecos.CEP
+                            CEP = Enderecos.CEP
                 };
 
-                return Ok(EnderecosResponse);
+                return Ok(Enderecos);
             }
             catch (Exception)
             {
@@ -58,7 +59,7 @@ namespace Controllers
         // Rota "api/EnderecosControllers"
         // Ele cria um novo endereço com base no objeto Enderecos fornecido no corpo da requisição
         [HttpPost]
-        public void Registrar([FromBody] Endereco enderecos)
+        public void Registrar([FromBody] EnderecosControllers enderecos)
         {
 
         }

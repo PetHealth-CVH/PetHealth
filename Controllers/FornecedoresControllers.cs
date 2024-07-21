@@ -1,7 +1,9 @@
 using Contexts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Models;
+using Models.HttpResponse;
 
 
 namespace Controllers
@@ -14,7 +16,7 @@ namespace Controllers
         // Ele retorna um objeto FornecedorResponse, que representa as informações de um fornecedor
         private readonly PetHealthDbContext _contexto;
 
-        public FornecedoresControllers (PetHealthDbContext contexto)
+        public FornecedoresControllers(PetHealthDbContext contexto)
         {
             _contexto = contexto;
         }
@@ -25,7 +27,7 @@ namespace Controllers
             try
             {
                 var Fornecedor = await _contexto.Fornecedor
-                                .FirstOrDefaultAsync(tb_fornecedores => tb_fornecedores.Id == id);
+                                .FirstOrDefaultAsync(tb_fornecedores => tb_fornecedores.id == id);
 
                 if (Fornecedor == null)
                 {
@@ -34,29 +36,19 @@ namespace Controllers
 
                 new FornecedorResponse
                 {
-                    Id = Fornecedor.Id,
+                    Id = Fornecedor.id,
                     Razao = Fornecedor.Razao,
                     CNPJ = Fornecedor.CNPJ,
                     Telefone = Fornecedor.Telefone,
                     Email = Fornecedor.Email
                 };
 
-                return Ok(FornecedorResponse);
+                return Ok(Fornecedor);
             }
             catch (Exception)
             {
                 return StatusCode(500, "Não foi possível realizar a consulta.");
             }
         }
-
-        // Rota "api/FornecedoresControllers/{id}"
-        // Ele atualiza as informações de um fornecedor com base no ID fornecido
-        [HttpPut("{id}")]
-        public void AtualizarPelaId(Guid id, [FromBody] FornecedorAtualizarRequest request)
-        {
-
-        }
-        
-        //Não terá opção de remover fornecedor, somente atualizar.
     }
 }
