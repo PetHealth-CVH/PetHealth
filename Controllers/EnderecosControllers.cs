@@ -71,13 +71,5 @@ namespace Controllers
         {
 
         }
-        
-        // Rota "api/EnderecosControllers/{id}"
-        // Ele exclui um endereço com base no ID fornecido
-        [HttpDelete("{id}")]
-        public void DeletarEnderecoId(Guid id)
-        {
-            
-        }
     }
 }
