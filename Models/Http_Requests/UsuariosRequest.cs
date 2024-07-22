@@ -1,6 +1,6 @@
 namespace Models.HttpRequests
 {
-    public class Endereco
+    public class EnderecoRequest
     {
         public Guid Id {get; set;}
         public required string Estado {get; set;}
@@ -26,12 +26,5 @@ namespace Models.HttpRequests
         public required string Sobrenome { get; set; }
         public required Credencial Credencial { get; set; }
         public required Endereco Endereco { get; set; }
-    }
-
-    public class Contato
-    {
-        public string celular {get; set;}
-        public string Email {get; set;}
-        public Credencial email {get; set;}      
     }
 }
