@@ -9,9 +9,9 @@ namespace Models.HttpRequests
         public required string Rua {get; set;}
         public required string Numero {get; set;}
         public required string CEP {get; set;}
-        public string? Complemento {get; set;}
+        public string Complemento {get; set;}
     }
-    public class Credencial
+    public class CredencialRequest
     {
         public required string Email {get; set;}
         public required string Senha {get; set;}

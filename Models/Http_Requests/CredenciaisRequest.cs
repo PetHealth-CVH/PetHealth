@@ -1,6 +1,6 @@
 namespace Models.HttpRequests
 {
-    public class Credenciais
+    public class CredenciaisRequest
     {
         public Guid Id {get; set;}
         public required string Email {get; set;}
