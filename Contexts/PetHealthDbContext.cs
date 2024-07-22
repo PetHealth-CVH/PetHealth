@@ -16,6 +16,7 @@ namespace Contexts
         public DbSet<Credencial> Credenciais { get; set; }
         public DbSet<Contato> Contatos { get; set; }
         public DbSet<Pedidos> Pedidos {get; set; }
+        public DbSet<Fornecedor> Fornecedor {get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelador)
         {
@@ -30,6 +31,7 @@ namespace Contexts
             modelador.Entity<Usuario>()
                 .HasOne(usuario => usuario.Contato)
                 .WithOne()
+
                 .HasForeignKey<Usuario>(usuario => usuario.ContatoId)
                 .IsRequired();
 
@@ -38,6 +40,7 @@ namespace Contexts
                 .HasOne(contato => contato.Email)
                 .WithOne()
                 .HasForeignKey<Contato>(contato => contato.Email)
+
                 .IsRequired();
 
             // Configuração da relação entre Credencial e Usuario
@@ -69,6 +72,21 @@ namespace Contexts
                 .IsRequired();
 
             base.OnModelCreating(modelador);
+        }
+
+        internal async Task AtualizarPorId(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal async Task<bool> AtualizarPorId(Usuario usuarioQueEstaBuscando)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal async Task ObterUsuarioPorId(Guid id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

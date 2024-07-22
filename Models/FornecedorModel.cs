@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 namespace Models 
 {
     [Table("tb_fornecedores")]
-    public class tb_fornecedores
+    public class Fornecedor
     {
         [Key]
         [Column("id_fornecedor")]

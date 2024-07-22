@@ -39,7 +39,7 @@ namespace Models
 
         public Guid ContatoId {get;set;}
         public Contato Contato {get;set;}
-
+        public object CEP { get; internal set; }
     }
-}
+}        
 

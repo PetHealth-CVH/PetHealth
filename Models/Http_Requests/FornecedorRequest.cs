@@ -1,6 +1,6 @@
 namespace Models.HttpRequests
 {
-    public class tb_fornecedores
+    public class Fornecedor
     {
         public string Razao { get; set; }
         public string CNPJ { get; set; }

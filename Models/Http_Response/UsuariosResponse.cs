@@ -1,6 +1,6 @@
 namespace Models.HttpResponse
 {
-        public class UsuarioResponse
+        public class UsuariosResponse
     {
         public required Guid Id {get;set;}
         public required string Nome {get;set;}
@@ -9,6 +9,7 @@ namespace Models.HttpResponse
     }
     public class EnderecoResponse 
     {
+        public Guid Id {get; set;}
         public required string rua {get;set;}
         public required string numero {get;set;}
         public required string complemento {get;set;}
@@ -17,7 +18,10 @@ namespace Models.HttpResponse
         public required string estado {get;set;}
         public required int CEP {get;set;}
         public required string cidade {get;set;}
-    }
 
-   
+        public static implicit operator EnderecoResponse(EnderecosResponse v)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

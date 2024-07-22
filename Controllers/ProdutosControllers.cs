@@ -1,32 +1,53 @@
+using Contexts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Models;
+using Models.HttpResponse;
 
 namespace Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProdutosControllers : ControllerBase
+
+    public class ProdutosController : ControllerBase
     {
-        // Rota "api/ProdutosControllers"
-        // Ele retorna uma lista de objetos Produtos, cada um representando um produto
-        [HttpGet]
-        public IEnumerable<Produtos> SolicitarProdutos()
+        private readonly PetHealthDbContext _contexto;
+
+        public ProdutosController(PetHealthDbContext contexto)
         {
-                // Cria uma lista de produtos
-                List<Produtos> produtos = new List<Produtos>
+            _contexto = contexto;
+        }
+
+        [HttpGet("{idProduto}")]
+        public async Task<ActionResult<ProdutosResponse>> ObterProdutoPelaId(Guid id)
+        {
+            try
             {
-                new() {
-                    Id = Guid.NewGuid(),
-                    NomeProduto = "Vermífugo Vermivet Composto 600mg para cães",
-                    Descricao = "Vermifugo para tratamento e controle de verminoses para cães",
-                    Preco = 9.90,
-                    Quantidade = 100
+                var Produtos = await _contexto.Produtos
+                                .FirstOrDefaultAsync(tb_produtos => tb_produtos.Id == id);
+
+                if (Produtos == null)
+                {
+                    return NotFound();
                 }
-            };
-            // Retorna a lista de produtos
-            return produtos;
-        } 
+
+                new ProdutosResponse
+                {
+                    Id = Produtos.Id,
+                    Nome_Produto = Produtos.Nome_Produto,
+                    Descricao = Produtos.Descricao,
+                    Quantidade = Produtos.Quantidade,
+                    Preco = Produtos.Preco
+                };
+
+                return Ok(Produtos);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Não foi possível realizar a consulta.");
+            }
+        }
     }
 }
 

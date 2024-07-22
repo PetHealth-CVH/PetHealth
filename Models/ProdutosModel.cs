@@ -12,7 +12,7 @@ namespace Models
 
         [Column("id_produtos")]
         [Key]
-        public Guid? Id { get; set; }
+        public Guid Id { get; set; }
 
         // Mapeia suas propriedades para colunas em uma tabela de banco de dados.
         [Column("nome_produto")]
