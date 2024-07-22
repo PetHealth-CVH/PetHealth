@@ -15,6 +15,7 @@ namespace Contexts
         public DbSet<Endereco> Enderecos { get; set; }
         public DbSet<Credencial> Credenciais { get; set; }
         public DbSet<Contato> Contatos { get; set; }
+        public DbSet<Pedidos> Pedidos {get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelador)
         {
@@ -22,21 +23,51 @@ namespace Contexts
             modelador.Entity<Usuario>()
                 .HasOne(usuario => usuario.Endereco)
                 .WithMany()
-                .HasForeignKey(usuario => usuario.id_enderecos)
+                .HasForeignKey(usuario => usuario.EnderecoId)
                 .IsRequired(false);
 
-            // Configuração da relação entre Usuario e Credencial
+            // Configuração da relação entre Usuario e Contato
             modelador.Entity<Usuario>()
-                .HasOne(usuario => usuario.Credencial)
-                .WithMany()
-                .HasForeignKey(usuario => usuario.id_credencial);
-
-            modelador.Entity<Usuario>()
-                .HasOne(usuario => usuario.id_usuario)
+                .HasOne(usuario => usuario.Contato)
                 .WithOne()
-                .HasForeignKey(usuario => usuario.id_contatos)
+                .HasForeignKey<Usuario>(usuario => usuario.ContatoId)
                 .IsRequired();
-                
+
+            // Configuração da relação entre Contato e Email
+            modelador.Entity<Contato>()
+                .HasOne(contato => contato.Email)
+                .WithOne()
+                .HasForeignKey<Contato>(contato => contato.Email)
+                .IsRequired();
+
+            // Configuração da relação entre Credencial e Usuario
+            modelador.Entity<Credencial>()
+                .HasOne(credencial => credencial.Usuario)
+                .WithOne()
+                .HasForeignKey<Credencial>(Credencial => Credencial.UsuarioId)
+                .IsRequired();
+
+            // Configuração da relação entre Pedidos e Usuario
+            modelador.Entity<Pedidos>()
+                .HasOne(pedidos => pedidos.Usuario)
+                .WithOne()
+                .HasForeignKey<Pedidos>(Pedidos => Pedidos.UsuarioId)
+                .IsRequired();
+
+            // Configuração da relação entre Pedidos e Produtos
+            modelador.Entity<Pedidos>()
+                .HasOne(Pedidos => Pedidos.Produtos)
+                .WithMany()
+                .HasForeignKey(Pedidos => Pedidos.ProdutosId)
+                .IsRequired();
+
+            // Configuração da relação entre Produtos e Fornecedor
+            modelador.Entity<Produtos>()
+                .HasOne(Produtos => Produtos.Fornecedores)
+                .WithMany()
+                .HasForeignKey(Produtos => Produtos.FornecedorId)
+                .IsRequired();
+
             base.OnModelCreating(modelador);
         }
     }

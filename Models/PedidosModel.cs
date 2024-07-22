@@ -26,12 +26,12 @@ namespace Models
         [ForeignKey("UsuarioId")]
         [Column("id_usuario")]
         public Guid UsuarioId {get; set;}
-        public Usuario usuario {get; set;}
+        public Usuario Usuario {get; set;}
 
         [ForeignKey("ProdutosId")]
         [Column("id_produtos")]
         public Guid ProdutosId {get; set;}
-        public Produtos produtos {get; set;}
+        public Produtos Produtos {get; set;}
 
     }
 }
