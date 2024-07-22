@@ -31,28 +31,30 @@ namespace Contexts
             modelador.Entity<Usuario>()
                 .HasOne(usuario => usuario.Contato)
                 .WithOne()
-                .HasForeignKey(usuario => usuario.ContatoId)
-                .IsRequired(false);
+
+                .HasForeignKey<Usuario>(usuario => usuario.ContatoId)
+                .IsRequired();
 
             // Configuração da relação entre Contato e Email
             modelador.Entity<Contato>()
                 .HasOne(contato => contato.Email)
                 .WithOne()
-                .HasForeignKey(contato => contato.EmailId)
+                .HasForeignKey<Contato>(contato => contato.Email)
+
                 .IsRequired();
 
             // Configuração da relação entre Credencial e Usuario
             modelador.Entity<Credencial>()
                 .HasOne(credencial => credencial.Usuario)
                 .WithOne()
-                .HasForeignKey(Credencial => Credencial.CredencialId)
+                .HasForeignKey<Credencial>(Credencial => Credencial.UsuarioId)
                 .IsRequired();
 
             // Configuração da relação entre Pedidos e Usuario
             modelador.Entity<Pedidos>()
                 .HasOne(pedidos => pedidos.Usuario)
                 .WithOne()
-                .HasForeignKey(Pedidos => Pedidos.UsuarioID)
+                .HasForeignKey<Pedidos>(Pedidos => Pedidos.UsuarioId)
                 .IsRequired();
 
             // Configuração da relação entre Pedidos e Produtos
@@ -64,11 +66,11 @@ namespace Contexts
 
             // Configuração da relação entre Produtos e Fornecedor
             modelador.Entity<Produtos>()
-                .HasOne(Produtos => Produtos.Fornecedor)
+                .HasOne(Produtos => Produtos.Fornecedores)
                 .WithMany()
                 .HasForeignKey(Produtos => Produtos.FornecedorId)
                 .IsRequired();
-                
+
             base.OnModelCreating(modelador);
         }
 

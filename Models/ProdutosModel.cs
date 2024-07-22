@@ -31,7 +31,7 @@ namespace Models
         [ForeignKey("tb_fornecedores")]
         [Column("id_fornecedor")] 
 
-        public Guid ForncedorId {get; set;}
+        public Guid FornecedorId {get; set;}
         public tb_fornecedores Fornecedores {get; set;}
     }
 }
