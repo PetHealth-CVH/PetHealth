@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Controllers;
+using Models.HttpRequests;
 
 // Definição da classe
 namespace Models
@@ -32,6 +33,6 @@ namespace Models
         [Column("id_fornecedor")] 
 
         public Guid FornecedorId {get; set;}
-        public tb_fornecedores Fornecedores {get; set;}
+        public required Fornecedor Fornecedores {get; set;}
     }
 }

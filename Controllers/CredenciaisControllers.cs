@@ -1,11 +1,9 @@
-using System.Net;
 using Contexts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Models.HttpRequests;
 using Models;
-using Credencial = Models.Credencial;
 
 
 namespace Controllers
@@ -54,7 +52,6 @@ namespace Controllers
                             Bairro = registroUsuario.Endereco.Bairro,
                             Cidade = registroUsuario.Endereco.Cidade,
                             Estado = registroUsuario.Endereco.Estado,
-
                             CEP = registroUsuario.Endereco.CEP
 
                 };
