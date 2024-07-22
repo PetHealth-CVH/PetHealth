@@ -18,5 +18,10 @@ namespace Models.HttpResponse
         public required string estado {get;set;}
         public required int CEP {get;set;}
         public required string cidade {get;set;}
+
+        public static implicit operator EnderecoResponse(EnderecosResponse v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

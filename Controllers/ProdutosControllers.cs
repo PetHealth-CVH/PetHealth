@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Models;
+using Models.HttpResponse;
 
 namespace Controllers
 {
@@ -19,7 +20,7 @@ namespace Controllers
         }
 
         [HttpGet("{idProduto}")]
-        public async Task<ActionResult<ProdutoResponse>> ObterProdutoPelaId(Guid id)
+        public async Task<ActionResult<ProdutosResponse>> ObterProdutoPelaId(Guid id)
         {
             try
             {
@@ -40,7 +41,7 @@ namespace Controllers
                     Preco = Produtos.Preco
                 };
 
-                return Ok(ProdutoResponse);
+                return Ok(Produtos);
             }
             catch (Exception)
             {

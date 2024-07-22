@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Models.HttpResponse;
 using Models;
+using Models.HttpRequests;
 
 
 
@@ -22,6 +23,7 @@ namespace Controllers
         }
         // Rota "api/UsuariosControllers/{id}"
         // Ele retorna um objeto UsuarioResponse com informações do usuário com o ID fornecido
+        [HttpGet("{idUsuarioQueEstaBuscando}")]
         public async Task<ActionResult<UsuariosResponse>> ObterPelaId(Guid idUsuarioQueEstaBuscando)
         {
             try
@@ -54,7 +56,7 @@ namespace Controllers
                             Bairro = usuarioQueEstaBuscando.Endereco.Bairro,
                             Cidade = usuarioQueEstaBuscando.Endereco.Cidade,
                             Estado = usuarioQueEstaBuscando.Endereco.Estado,
-                            Cep = usuarioQueEstaBuscando.Endereco.CEP
+                            CEP = usuarioQueEstaBuscando.Endereco.CEP
                         }
                     }
                 );
@@ -66,21 +68,41 @@ namespace Controllers
 
         }
 
-    }
-    // Rota "api/UsuariosControllers/{id}"
-    // Ele atualiza as informações do usuário com o ID fornecido 
-    [HttpPut("{id}")]
-    public void AtualizarPorId(Guid id)
-    {
+        // Rota "api/UsuariosControllers/{id}"
+        // Ele atualiza as informações do usuário com o ID fornecido 
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> AtualizarPorId(Guid id, [FromBody] UsuarioRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("O corpo da requisição não pode estar vazio.");
+            }
+
+            var usuarioQueEstaBuscando = await _contexto.Usuarios.FindAsync(id);
+            if (usuarioQueEstaBuscando == null)
+            {
+                return NotFound("Usuário não encontrado.");
+            }
+
+            // Atualize os campos do usuário existente com os dados do request
+            usuarioQueEstaBuscando.Nome = request.Nome;
+            usuarioQueEstaBuscando.Sobrenome = request.Sobrenome;
+            usuarioQueEstaBuscando.Cpf = request.Cpf;
+            
+
+            // Salve as mudanças
+            var resultado = await _contexto.AtualizarPorId(usuarioQueEstaBuscando);
+
+            if (!resultado)
+            {
+                return StatusCode(500, "Ocorreu um problema ao atualizar o usuário.");
+            }
+
+            return NoContent(); // 204 No Content
+        }
     }
 
-    // Rota "api/UsuariosControllers/{id}"
-    // Ele deleta o usuário com o ID fornecido
-    [HttpDelete("{id}")]
-    public void DeletarPorId(Guid id)
-    {
-
-    }
 }
+
 

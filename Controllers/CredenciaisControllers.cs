@@ -24,7 +24,7 @@ namespace Controllers
         // Rota "api/CredenciaisControllers/autenticarusuario"
         // Ele autentica um usuário com base nas credenciais fornecidas no objeto CredencialRequest
         [HttpPost("autenticarusuario")]
-        public void AutenticarUsuario(CredencialRequest credencial) 
+        public void AutenticarUsuario(CredenciaisRequest credenciais) 
         {
 
         }

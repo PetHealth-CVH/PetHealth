@@ -16,6 +16,7 @@ namespace Contexts
         public DbSet<Credencial> Credenciais { get; set; }
         public DbSet<Contato> Contatos { get; set; }
         public DbSet<Pedidos> Pedidos {get; set; }
+        public DbSet<Fornecedor> Fornecedor {get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelador)
         {
@@ -69,6 +70,21 @@ namespace Contexts
                 .IsRequired();
                 
             base.OnModelCreating(modelador);
+        }
+
+        internal async Task AtualizarPorId(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal async Task<bool> AtualizarPorId(Usuario usuarioQueEstaBuscando)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal async Task ObterUsuarioPorId(Guid id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
