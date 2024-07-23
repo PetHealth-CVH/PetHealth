@@ -1,6 +1,6 @@
 namespace Models.HttpRequests
 {
-    public class Fornecedor
+    public class FornecedorRequest
     {
         public string Razao { get; set; }
         public string CNPJ { get; set; }
