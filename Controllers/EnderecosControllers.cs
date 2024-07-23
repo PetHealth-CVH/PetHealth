@@ -14,7 +14,7 @@ namespace Controllers
     {
         // Rota "api/EnderecosControllers/{id}"
         // Ele retorna as informações de um endereço com base no ID fornecido
-          private readonly PetHealthDbContext _contexto;
+        private readonly PetHealthDbContext _contexto;
 
         public EnderecosControllers (PetHealthDbContext contexto)
         {
@@ -67,9 +67,36 @@ namespace Controllers
         // Rota "api/EnderecosControllers/{id}"
         // Ele atualiza as informações de um endereço com base no ID fornecido
         [HttpPut("{id}")]
-        public void AtualizarEnderecoId(Guid id)
+        public async Task<IActionResult>AtualizarEPorId(Guid id, [FromBody] EnderecosRequest request)
         {
+            if (request == null)
+            {
+                return BadRequest("O corpo da requisição não pode estar vazio")
+            }
+            var EnderecoBusca = await _contexto.Enderecos.FindAsync(id);
+            if (EnderecoBusca == null)
+            {
+                return NotFound("Endereço não encontrado.");
+            }
 
+            // Atualiza os dados de endereço do usuário
+            EnderecoBusca.Estado = request.Estado;
+            EnderecoBusca.Bairro = request.Bairro;
+            EnderecoBusca.Cidade = request.Cidade;
+            EnderecoBusca.Rua = request.Rua;
+            EnderecoBusca.Numero = request.Numero;
+            EnderecoBusca.CEP = request.CEP;
+            EnderecoBusca.Complemento = request.Complemento;
+
+            // Salva as mudanças
+            var resultado = await _contexto.AtualizarEPorId(EnderecoBusca);
+
+            if (!resultado)
+            {
+                return StatusCode(500, "Ocorreu um  problema ao atualizar o endereço.")
+            }
+
+            return NoContent(); // 204 No Content
         }
     }
 }
