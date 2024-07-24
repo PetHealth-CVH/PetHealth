@@ -34,7 +34,7 @@ namespace Models
 
         [Column("complemento")]
         [MaxLength(200)]
-        public required string Complemento {get; set;}
+        public string? Complemento {get; set;}
 
     }
 }

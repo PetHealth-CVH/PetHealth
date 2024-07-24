@@ -2,14 +2,13 @@ namespace Models.HttpRequests
 {
     public class EnderecoRequest
     {
-        public Guid Id {get; set;}
         public required string Estado {get; set;}
         public required string Bairro {get; set;}
         public required string Cidade {get; set;} 
         public required string Rua {get; set;}
         public required string Numero {get; set;}
         public required string CEP {get; set;}
-        public string Complemento {get; set;}
+        public string? Complemento {get; set;}
     }
     public class CredencialRequest
     {
@@ -20,11 +19,11 @@ namespace Models.HttpRequests
     {
 
         public Guid Id {get; set;}
-        public required string Cpf { get; set; }
-        public DateTime DataCadastro { get; set; }
+       // public DateTime DataCadastro { get; set; }
         public required string Nome { get; set; }
         public required string Sobrenome { get; set; }
-        public required Credencial Credencial { get; set; }
-        public required Endereco Endereco { get; set; }
+        public required string Cpf { get; set; }
+        public required CredencialRequest Credencial { get; set; }
+        // public required Endereco Endereco { get; set; }
     }
 }
