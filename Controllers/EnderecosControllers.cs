@@ -58,11 +58,13 @@ namespace Controllers
         // Rota "api/EnderecosControllers/{id}"
         // Ele atualiza as informações de um endereço com base no ID fornecido
         [HttpPut("{id}")]
+
         public async Task<IActionResult>AtualizarPorId(Guid id, [FromBody] EnderecoRequest enderecoAtualizado)
         {
             if (enderecoAtualizado == null)
             {
                 return BadRequest("O corpo da requisição não pode estar vazio");
+
             }
             var EnderecoBusca = await _contexto.Enderecos.FindAsync(id);
             if (EnderecoBusca == null)
@@ -71,6 +73,7 @@ namespace Controllers
             }
 
             // Atualiza os dados de endereço do usuário
+
             EnderecoBusca.Estado = enderecoAtualizado.Estado;
             EnderecoBusca.Bairro = enderecoAtualizado.Bairro;
             EnderecoBusca.Cidade = enderecoAtualizado.Cidade;
@@ -81,6 +84,7 @@ namespace Controllers
 
             // Salva as mudanças
             _contexto.Entry(enderecoAtualizado).State = EntityState.Modified;
+
 
             return NoContent(); // 204 No Content
         }
