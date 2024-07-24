@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Models;
-using Models.HttpRequests;
 using Models.HttpResponse;
+using Models.HttpRequests;
 
 namespace Controllers
 {
@@ -21,7 +21,7 @@ namespace Controllers
             _contexto = contexto;
         }
 
-        [HttpGet("{idFornecedor}")]
+        [HttpGet("{idEndereco}")]
 
         public async Task<ActionResult<EnderecosResponse>> ObterProdutoPelaId(Guid id)
 
@@ -55,23 +55,14 @@ namespace Controllers
             }
         }
 
-
-        // Rota "api/EnderecosControllers"
-        // Ele cria um novo endereço com base no objeto Enderecos fornecido no corpo da requisição
-        [HttpPost]
-        public void Registrar([FromBody] EnderecosControllers enderecos)
-        {
-
-        }
-
         // Rota "api/EnderecosControllers/{id}"
         // Ele atualiza as informações de um endereço com base no ID fornecido
         [HttpPut("{id}")]
-        public async Task<IActionResult>AtualizarEPorId(Guid id, [FromBody] EnderecosRequest request)
+        public async Task<IActionResult>AtualizarPorId(Guid id, [FromBody] EnderecoRequest enderecoAtualizado)
         {
-            if (request == null)
+            if (enderecoAtualizado == null)
             {
-                return BadRequest("O corpo da requisição não pode estar vazio")
+                return BadRequest("O corpo da requisição não pode estar vazio");
             }
             var EnderecoBusca = await _contexto.Enderecos.FindAsync(id);
             if (EnderecoBusca == null)
@@ -80,21 +71,16 @@ namespace Controllers
             }
 
             // Atualiza os dados de endereço do usuário
-            EnderecoBusca.Estado = request.Estado;
-            EnderecoBusca.Bairro = request.Bairro;
-            EnderecoBusca.Cidade = request.Cidade;
-            EnderecoBusca.Rua = request.Rua;
-            EnderecoBusca.Numero = request.Numero;
-            EnderecoBusca.CEP = request.CEP;
-            EnderecoBusca.Complemento = request.Complemento;
+            EnderecoBusca.Estado = enderecoAtualizado.Estado;
+            EnderecoBusca.Bairro = enderecoAtualizado.Bairro;
+            EnderecoBusca.Cidade = enderecoAtualizado.Cidade;
+            EnderecoBusca.Rua = enderecoAtualizado.Rua;
+            EnderecoBusca.Numero = enderecoAtualizado.Numero;
+            EnderecoBusca.CEP = enderecoAtualizado.CEP;
+            EnderecoBusca.Complemento = enderecoAtualizado.Complemento;
 
             // Salva as mudanças
-            var resultado = await _contexto.AtualizarEPorId(EnderecoBusca);
-
-            if (!resultado)
-            {
-                return StatusCode(500, "Ocorreu um  problema ao atualizar o endereço.")
-            }
+            _contexto.Entry(enderecoAtualizado).State = EntityState.Modified;
 
             return NoContent(); // 204 No Content
         }

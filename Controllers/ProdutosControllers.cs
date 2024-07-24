@@ -18,7 +18,8 @@ namespace Controllers
         {
             _contexto = contexto;
         }
-
+        
+        // Obter informações do produto pela Id
         [HttpGet("{idProduto}")]
         public async Task<ActionResult<ProdutosResponse>> ObterProdutoPelaId(Guid id)
         {

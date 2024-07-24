@@ -1,14 +1,11 @@
-using Contexts;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
-using Models.HttpResponse;
 using Models;
 using Models.HttpRequests;
-
-
+using Models.HttpResponse;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Controllers
 {
@@ -16,70 +13,56 @@ namespace Controllers
     [ApiController]
     public class UsuariosControllers : ControllerBase
     {
-        private readonly PetHealthDbContext _contexto;
-        public UsuariosControllers(PetHealthDbContext contexto)
+        private static List<UsuarioRequest> registrosUsuarios = new List<UsuarioRequest>();
+
+        // Construtor sem DbContext
+        public UsuariosControllers()
         {
-            _contexto = contexto;
         }
-        // Rota "api/UsuariosControllers/{id}"
-        // Ele retorna um objeto UsuarioResponse com informações do usuário com o ID fornecido
+
         [HttpGet("{idUsuarioQueEstaBuscando}")]
-        public async Task<ActionResult<UsuariosResponse>> ObterPelaId(Guid idUsuarioQueEstaBuscando)
+        public ActionResult<UsuariosResponse> ObterPeloId(Guid idUsuarioQueEstaBuscando)
         {
-            try
+            var usuarioQueEstaBuscando = registrosUsuarios.FirstOrDefault(u => u.Id == idUsuarioQueEstaBuscando);
+
+            if (usuarioQueEstaBuscando == null)
             {
-                var usuarioQueEstaBuscando = await _contexto.Usuarios
-                    .Include(tb_usuarios => tb_usuarios.Endereco)
-                    .FirstOrDefaultAsync(tb_usuarios => tb_usuarios.Id == idUsuarioQueEstaBuscando);
-
-                bool usuarioNaoEncontrado = usuarioQueEstaBuscando == null;
-
-                if (usuarioNaoEncontrado)
-                {
-                    return NotFound();
-                }
-
-                return Ok(
-
-                    new UsuariosResponse
-
-                    {
-                        Id = usuarioQueEstaBuscando.Id,
-                        Nome = usuarioQueEstaBuscando.Nome,
-                        Sobrenome = usuarioQueEstaBuscando.Sobrenome,
-                        Endereco = new EnderecosResponse
-
-                        {
-                            Rua = usuarioQueEstaBuscando.Endereco.Rua,
-                            Numero = usuarioQueEstaBuscando.Endereco.Numero,
-                            Complemento = usuarioQueEstaBuscando.Endereco.Complemento,
-                            Bairro = usuarioQueEstaBuscando.Endereco.Bairro,
-                            Cidade = usuarioQueEstaBuscando.Endereco.Cidade,
-                            Estado = usuarioQueEstaBuscando.Endereco.Estado,
-                            CEP = usuarioQueEstaBuscando.Endereco.CEP
-                        }
-                    }
-                );
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Não foi possível realizar a consulta.");
+                return NotFound();
             }
 
+            var enderecoResponse = new Enderecos
+            {
+                // Preencher com dados fictícios ou de outra fonte
+                Id = Guid.NewGuid(),
+                Rua = "Rua Exemplo",
+                Numero = "123",
+                Complemento = "Apto 1",
+                Bairro = "Bairro Exemplo",
+                Cidade = "Cidade Exemplo",
+                Estado = "Estado Exemplo",
+                CEP = "00000-000"
+            };
+
+            var usuarioResponse = new UsuariosResponse
+            {
+                Id = usuarioQueEstaBuscando.Id,
+                Nome = usuarioQueEstaBuscando.Nome,
+                Sobrenome = usuarioQueEstaBuscando.Sobrenome,
+                Enderecos = enderecoResponse
+            };
+
+            return Ok(usuarioResponse);
         }
-
-        // Rota "api/UsuariosControllers/{id}"
-        // Ele atualiza as informações do usuário com o ID fornecido 
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> AtualizarPorId(Guid id, [FromBody] UsuarioRequest request)
+        public IActionResult AtualizarPorId(Guid id, [FromBody] UsuarioRequest request)
         {
             if (request == null)
             {
                 return BadRequest("O corpo da requisição não pode estar vazio.");
             }
 
-            var usuarioQueEstaBuscando = await _contexto.Usuarios.FindAsync(id);
+            var usuarioQueEstaBuscando = registrosUsuarios.FirstOrDefault(u => u.Id == id);
             if (usuarioQueEstaBuscando == null)
             {
                 return NotFound("Usuário não encontrado.");
@@ -89,20 +72,22 @@ namespace Controllers
             usuarioQueEstaBuscando.Nome = request.Nome;
             usuarioQueEstaBuscando.Sobrenome = request.Sobrenome;
             usuarioQueEstaBuscando.Cpf = request.Cpf;
-            
-
-            // Salve as mudanças
-            var resultado = await _contexto.AtualizarPorId(usuarioQueEstaBuscando);
-
-            if (!resultado)
-            {
-                return StatusCode(500, "Ocorreu um problema ao atualizar o usuário.");
-            }
 
             return NoContent(); // 204 No Content
         }
+
+        [HttpPost("registrar")]
+        public IActionResult Registrar([FromBody] UsuarioRequest registroUsuario)
+        {
+            if (registroUsuario == null)
+            {
+                return BadRequest();
+            }
+
+            registroUsuario.Id = Guid.NewGuid();
+            registrosUsuarios.Add(registroUsuario);
+
+            return CreatedAtAction(nameof(ObterPeloId), new { idUsuarioQueEstaBuscando = registroUsuario.Id }, registroUsuario);
+        }
     }
-
 }
-
-
