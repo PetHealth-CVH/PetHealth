@@ -53,7 +53,7 @@ namespace Controllers
         
         // GET: api/produtos/{idProduto}
         [HttpGet("{idProduto}")]
-        public ActionResult<ProdutosResponse> ObterProdutoPelaId(Guid idProduto)
+        public ActionResult<ProdutosResponse> ObterPelaId(Guid idProduto)
         {
             try
             {
@@ -66,6 +66,22 @@ namespace Controllers
                 }
 
                 return Ok(produto);
+            }
+            catch(Exception)
+            {
+                return StatusCode(500);
+            }
+        }
+
+        // GET: api/produtos/
+        [HttpGet]
+        public ActionResult<IEnumerable<ProdutosResponse>> ObterLista()
+        {
+            try
+            {
+                var produtos = _contexto.Produtos.ToList();
+
+                return Ok(produtos);
             }
             catch(Exception)
             {
