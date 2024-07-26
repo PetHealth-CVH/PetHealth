@@ -1,8 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-// Definição da classe
 namespace Models 
 {
     [Table("tb_fornecedores")]
@@ -10,21 +8,27 @@ namespace Models
     {
         [Key]
         [Column("id_fornecedor")]
+        public Guid Id { get; set; }
 
-        // Mapeia suas propriedades para colunas em uma tabela de banco de dados.
-        public Guid id { get; set; }
+        [Required]
+        [Column("nome")]
+        public string Nome { get; set; }
+
         [Required]
         [MaxLength(64)]
-        [Column("razao")]
-        public string Razao { get; set; }
+        [Column("razao_social")]
+        public string RazaoSocial { get; set; }
+        
         [Required]
         [MaxLength(14)]
         [Column("cnpj")]
-        public string CNPJ { get; set; }
+        public string Cnpj { get; set; }
+
         [Required]
         [MaxLength(12)]
         [Column("telefone")]
         public string Telefone { get; set; }
+
         [Required]
         [MaxLength(128)]
         [Column("email")]

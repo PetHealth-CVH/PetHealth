@@ -7,7 +7,7 @@ namespace Models.HttpRequests
         public required string Cidade {get; set;} 
         public required string Rua {get; set;}
         public required string Numero {get; set;}
-        public required string CEP {get; set;}
+        public required string Cep {get; set;}
         public string? Complemento {get; set;}
     }
     public class CredencialRequest
@@ -17,13 +17,11 @@ namespace Models.HttpRequests
     }
     public class UsuarioRequest
     {
-
         public Guid Id {get; set;}
-       // public DateTime DataCadastro { get; set; }
         public required string Nome { get; set; }
         public required string Sobrenome { get; set; }
         public required string Cpf { get; set; }
         public required CredencialRequest Credencial { get; set; }
-        // public required Endereco Endereco { get; set; }
+        public required EnderecoRequest Endereco { get; set; }
     }
 }

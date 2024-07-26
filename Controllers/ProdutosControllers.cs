@@ -1,8 +1,10 @@
-using Contexts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+
+using Contexts;
 using Models;
+using Models.HttpRequests;
 using Models.HttpResponse;
 
 namespace Controllers
@@ -19,34 +21,55 @@ namespace Controllers
             _contexto = contexto;
         }
         
-        // Obter informações do produto pela Id
-        [HttpGet("{idProduto}")]
-        public async Task<ActionResult<ProdutosResponse>> ObterProdutoPelaId(Guid id)
+        // POST: api/produtos
+        [HttpPost]
+        public ActionResult Cadastrar([FromBody] ProdutoRequest cadastro)
         {
             try
             {
-                var Produtos = await _contexto.Produtos
-                                .FirstOrDefaultAsync(tb_produtos => tb_produtos.Id == id);
+                var produto = new Produto
+                {
+                    Nome = cadastro.Nome,
+                    Descricao = cadastro.Descricao,
+                };
 
-                if (Produtos == null)
+                if (cadastro.IdFornecedor != null)
+                {
+                    produto.FornecedorId = (Guid)cadastro.IdFornecedor;
+                }
+
+                _contexto.Produtos.Add(produto);
+                _contexto.SaveChanges();
+
+                cadastro.Id = produto.Id;
+
+                return StatusCode(201, new { idProduto = cadastro.Id });
+            }
+            catch(Exception)
+            {
+                return StatusCode(500);
+            }
+        }
+        
+        // GET: api/produtos/{idProduto}
+        [HttpGet("{idProduto}")]
+        public ActionResult<ProdutosResponse> ObterProdutoPelaId(Guid idProduto)
+        {
+            try
+            {
+                var produto = _contexto.Produtos
+                                .FirstOrDefault(tb_produtos => tb_produtos.Id == idProduto);
+
+                if (produto == null)
                 {
                     return NotFound();
                 }
 
-                new ProdutosResponse
-                {
-                    Id = Produtos.Id,
-                    Nome_Produto = Produtos.Nome_Produto,
-                    Descricao = Produtos.Descricao,
-                    Quantidade = Produtos.Quantidade,
-                    Preco = Produtos.Preco
-                };
-
-                return Ok(Produtos);
+                return Ok(produto);
             }
-            catch (Exception)
+            catch(Exception)
             {
-                return StatusCode(500, "Não foi possível realizar a consulta.");
+                return StatusCode(500);
             }
         }
     }

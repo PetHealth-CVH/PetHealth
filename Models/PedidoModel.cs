@@ -6,32 +6,32 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Models
 {
     [Table("tb_pedidos")]
-    public class Pedidos 
+    public class Pedido 
     {
         [Key]
-        [Column("id_pedidos")]
+        [Column("id_pedido")]
         public Guid Id {get; set;}
 
         // Propriedades da classe
         [Column("data_pedido")]
-        public DateTime data_pedido {get; set;}
+        public DateTime Data {get; set;}
 
         [Column("quantidade")]
-        public int quantidade {get; set;}
+        public int Quantidade {get; set;}
 
         [Column("preco")]
-        public double preco {get; set;}
+        public double Preco {get; set;}
 
         // Relacionamentos da tb_pedidos = tb_usuario.id_usuario
         [ForeignKey("UsuarioId")]
         [Column("id_usuario")]
         public Guid UsuarioId {get; set;}
-        public Usuario Usuario {get; set;}
 
-        [ForeignKey("ProdutosId")]
-        [Column("id_produtos")]
-        public Guid ProdutosId {get; set;}
-        public Produtos Produtos {get; set;}
-
+        [ForeignKey("ProdutoId")]
+        [Column("id_produto")]
+        public Guid ProdutoId {get; set;}
+        
+        public required Usuario Usuario {get; set;}
+        public IEnumerable<Produto> Produtos {get; set;}
     }
 }
