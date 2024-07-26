@@ -1,7 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-// Definição da classe
 namespace Models 
 {
     [Table("tb_credenciais")]
@@ -22,6 +21,7 @@ namespace Models
         [ForeignKey("UsuarioId")]
         [Column("id_usuario")]
         public Guid UsuarioId {get; set;}
+
         public Usuario Usuario {get; set;}
     }
 }

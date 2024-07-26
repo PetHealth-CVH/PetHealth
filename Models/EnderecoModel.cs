@@ -8,10 +8,9 @@ namespace Models
     public class Endereco
     {
         [Key]
-        [Column("id_enderecos")]
+        [Column("id_endereco")]
         public Guid Id {get; set;}
 
-        // Mapeia suas propriedades para colunas em uma tabela de banco de dados.
         [Column("estado")]
         public required string Estado {get; set;}
 
@@ -27,14 +26,13 @@ namespace Models
         [Column("numero")]
         public required string Numero {get; set;}
 
-
         [Column("cep")]
         [MaxLength(8)]
-        public required string CEP {get; set;}
+        public required string Cep {get; set;}
 
         [Column("complemento")]
         [MaxLength(200)]
         public string? Complemento {get; set;}
-
+        public Usuario Usuario {get; set;}
     }
 }
