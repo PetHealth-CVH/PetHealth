@@ -8,7 +8,7 @@ namespace Models
     {
         [Key]
         [Column("id_fornecedor")]
-        public Guid Id { get; set; }
+        public long Id { get; set; }
 
         [Required]
         [Column("nome")]

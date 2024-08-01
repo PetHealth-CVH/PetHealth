@@ -64,7 +64,7 @@ namespace Controllers
         
         // GET: api/fornecedores/{idProduto}
         [HttpGet("{idFornecedor}")]
-        public ActionResult<FornecedorResponse> ObterPelaId(Guid idFornecedor)
+        public ActionResult<FornecedorResponse> ObterPelaId(long idFornecedor)
         {
             try
             {

@@ -3,7 +3,7 @@ namespace Models.HttpResponse
     public class EnderecosResponse
 
     {
-        public Guid Id { get; set; }
+        public long Id { get; set; }
         public required string Estado { get; set; }
         public required string Bairro { get; set; }
         public required string Cidade { get; set; }

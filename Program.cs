@@ -1,8 +1,13 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.OpenApi.Models;
 using Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<PetHealthDbContext>(options =>
+    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
+        new MySqlServerVersion(new Version(8, 0, 39))));
 
 builder.Services.AddControllers();
 

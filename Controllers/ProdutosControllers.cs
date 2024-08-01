@@ -35,7 +35,7 @@ namespace Controllers
 
                 if (cadastro.IdFornecedor != null)
                 {
-                    produto.FornecedorId = (Guid)cadastro.IdFornecedor;
+                    produto.FornecedorId = (long)cadastro.IdFornecedor;
                 }
 
                 _contexto.Produtos.Add(produto);
@@ -53,7 +53,7 @@ namespace Controllers
         
         // GET: api/produtos/{idProduto}
         [HttpGet("{idProduto}")]
-        public ActionResult<ProdutosResponse> ObterPelaId(Guid idProduto)
+        public ActionResult<ProdutosResponse> ObterPelaId(long idProduto)
         {
             try
             {
