@@ -8,7 +8,7 @@ namespace Models
     {
         [Column("id_credencial")]
         [Key]
-        public Guid Id {get; set;}
+        public long Id {get; set;}
 
         // Mapeia suas propriedades para colunas em uma tabela de banco de dados.
         [Column("email")]
@@ -20,7 +20,7 @@ namespace Models
         
         [ForeignKey("UsuarioId")]
         [Column("id_usuario")]
-        public Guid UsuarioId {get; set;}
+        public long UsuarioId {get; set;}
 
         public Usuario Usuario {get; set;}
     }

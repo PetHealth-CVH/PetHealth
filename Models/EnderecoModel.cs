@@ -9,7 +9,7 @@ namespace Models
     {
         [Key]
         [Column("id_endereco")]
-        public Guid Id {get; set;}
+        public long Id {get; set;}
 
         [Column("estado")]
         public required string Estado {get; set;}

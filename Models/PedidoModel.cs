@@ -10,28 +10,28 @@ namespace Models
     {
         [Key]
         [Column("id_pedido")]
-        public Guid Id {get; set;}
+        public long Id { get; set; }
 
         // Propriedades da classe
         [Column("data_pedido")]
-        public DateTime Data {get; set;}
+        public DateTime Data { get; set; }
 
         [Column("quantidade")]
-        public int Quantidade {get; set;}
+        public int Quantidade { get; set; }
 
         [Column("preco")]
-        public double Preco {get; set;}
+        public double Preco { get; set; }
 
         // Relacionamentos da tb_pedidos = tb_usuario.id_usuario
         [ForeignKey("UsuarioId")]
         [Column("id_usuario")]
-        public Guid UsuarioId {get; set;}
+        public Guid UsuarioId { get; set; }
 
         [ForeignKey("ProdutoId")]
         [Column("id_produto")]
-        public Guid ProdutoId {get; set;}
+        public long ProdutoId { get; set; }
         
-        public required Usuario Usuario {get; set;}
-        public IEnumerable<Produto> Produtos {get; set;}
+        public required Usuario Usuario { get; set; }
+        public IEnumerable<Produto> Produtos { get; set; }
     }
 }

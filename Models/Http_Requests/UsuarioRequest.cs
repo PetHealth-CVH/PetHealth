@@ -17,7 +17,7 @@ namespace Models.HttpRequests
     }
     public class UsuarioRequest
     {
-        public Guid Id {get; set;}
+        public long Id {get; set;}
         public required string Nome { get; set; }
         public required string Sobrenome { get; set; }
         public required string Cpf { get; set; }

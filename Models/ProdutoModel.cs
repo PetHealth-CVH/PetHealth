@@ -8,7 +8,7 @@ namespace Models
     {
         [Column("id_produto")]
         [Key]
-        public Guid Id { get; set; }
+        public long Id { get; set; }
 
         [Column("nome")]
         [MaxLength(50)]
@@ -19,7 +19,7 @@ namespace Models
 
         [ForeignKey("Fornecedores")]
         [Column("id_fornecedor")] 
-        public Guid FornecedorId {get; set;}
+        public long FornecedorId {get; set;}
         
         public Fornecedor Fornecedor {get; set;}
     }

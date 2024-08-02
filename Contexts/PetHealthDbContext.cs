@@ -31,8 +31,6 @@ namespace Contexts
                 .HasOne(credencial => credencial.Usuario)
                 .WithOne(usuario => usuario.Credencial)
                 .HasForeignKey<Credencial>(Credencial => Credencial.UsuarioId);
-            
-            modelador.Entity<Fornecedor>();
                 
         }
     }

@@ -2,7 +2,7 @@ namespace Models.HttpResponse
 {
     public class ProdutosResponse
     {
-        public Guid Id {get; set;}
+        public long Id {get; set;}
         public required string Nome_Produto {get;set;}   
         public required string Descricao {get;set;}
         public required int Quantidade {get;set;}
