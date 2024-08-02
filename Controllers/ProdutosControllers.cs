@@ -20,7 +20,7 @@ namespace Controllers
         }
         
         // Obter informações do produto pela Id
-        [HttpGet("{idProduto}")]
+        [HttpGet("ConsultarProdutoID")]
         public async Task<ActionResult<ProdutosResponse>> ObterProdutoPelaId(Guid id)
         {
             try

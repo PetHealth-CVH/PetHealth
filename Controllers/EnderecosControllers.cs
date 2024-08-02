@@ -12,16 +12,16 @@ namespace Controllers
     [ApiController]
     public class EnderecosControllers : ControllerBase
     {
-        // Rota "api/EnderecosControllers/{id}"
-        // Ele retorna as informações de um endereço com base no ID fornecido
         private readonly PetHealthDbContext _contexto;
 
         public EnderecosControllers (PetHealthDbContext contexto)
         {
             _contexto = contexto;
         }
-
-        [HttpGet("{idEndereco}")]
+        
+        // Rota "api/EnderecosControllers/{id}"
+        // Ele retorna as informações de um endereço com base no ID fornecido
+        [HttpGet("ConsultarID")]
 
         public async Task<ActionResult<EnderecosResponse>> ObterProdutoPelaId(Guid id)
 
@@ -57,7 +57,7 @@ namespace Controllers
 
         // Rota "api/EnderecosControllers/{id}"
         // Ele atualiza as informações de um endereço com base no ID fornecido
-        [HttpPut("{id}")]
+        [HttpPut("AtualizarEndereço")]
 
         public async Task<IActionResult>AtualizarPorId(Guid id, [FromBody] EnderecoRequest enderecoAtualizado)
         {

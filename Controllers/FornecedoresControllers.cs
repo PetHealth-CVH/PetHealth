@@ -46,7 +46,7 @@ namespace Controllers
                     Email = novoFornecedor.Email
                 };
 
-                return CreatedAtAction(nameof(ObterProdutoPelaId), new { idFornecedor = fornecedorResponse.Id }, fornecedorResponse);
+                return CreatedAtAction(nameof(ObterProdutoPelaId), new { id = fornecedorResponse.Id }, fornecedorResponse);
             }
             catch (Exception)
             {
@@ -56,12 +56,12 @@ namespace Controllers
 
         // Rota api/FornecedoresControllers/{idFornecedor}
         [HttpGet("{idFornecedor}")]
-        public async Task<ActionResult<FornecedorResponse>> ObterProdutoPelaId(Guid idFornecedor)
+        public async Task<ActionResult<FornecedorResponse>> ObterProdutoPelaId(Guid id)
         {
             try
             {
                 var fornecedor = await _contexto.Fornecedor
-                                .FirstOrDefaultAsync(f => f.id == idFornecedor);
+                                .FirstOrDefaultAsync(f => f.id == id);
 
                 if (fornecedor == null)
                 {
