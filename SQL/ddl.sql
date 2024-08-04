@@ -29,10 +29,10 @@ create table tb_usuarios (
     nome varchar(50) not null,
     sobrenome varchar(50) not null,
     cpf varchar(11) unique not null,
-    data_cadastro timestamp defaut NOW(),
+    data_cadastro timestamp default NOW(),
     id_contato int,
     id_endereco int,
-    id_credencial int
+    id_credencial int,
 
     foreign key (id_contato) references tb_contato (id_contato),
     foreign key (id_endereco) references tb_enderecos (id_endereco),
@@ -55,20 +55,20 @@ create table tb_contato (
 create table tb_pedidos (
     id_pedidos int primary key auto_increment,
     id_usuario int,
-    data_pedido timestamp defaut NOW,
+    data_pedido timestamp default NOW(),
     id_produtos int not null,
     quantidade int(100),
-    preco numeric(5,2) not null
+    preco numeric(5,2) not null,
 
     foreign key (id_usuario) references tb_usuarios(id_usuario),
     foreign key (id_produtos) references tb_produtos(id_produtos)
 );
 
-create table tb_fornecedores {
+create table tb_fornecedores (
     id_fornecedor int primary key auto_increment,
     razao varchar(64) not null,
     cnpj varchar(14) not null,
     telefone varchar(12) not null,
     email varchar(128) not null
-}
+);
 
