@@ -30,7 +30,6 @@ namespace Models
         [ForeignKey("Endereco")]
         [Column("id_endereco")]
         public long EnderecoId { get; set; }
-
         public Endereco Endereco { get; set; }
         public Credencial Credencial { get; set; }
     }

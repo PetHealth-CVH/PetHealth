@@ -6,87 +6,35 @@ using Contexts;
 using Models;
 using Models.HttpRequests;
 using Models.HttpResponse;
+using PetHealth.Services.Abstracts;
+using PetHealth.Dtos;
 
 namespace Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
 
-    public class ProdutosController : ControllerBase
+    public class ProdutosControllers : ControllerBase
     {
-        private readonly PetHealthDbContext _contexto;
+        private readonly IProdutosServices _produtosServices;
 
-        public ProdutosController(PetHealthDbContext contexto)
+        public ProdutosControllers(IProdutosServices produtosServices)
         {
-            _contexto = contexto;
+            _produtosServices = produtosServices;
         }
-        
+
         // POST: api/produtos
         [HttpPost]
-        public ActionResult Cadastrar([FromBody] ProdutoRequest cadastro)
+        public async Task<ActionResult> CadastrarProduto([FromBody] ProdutoDto produtoDto)
         {
-            try
-            {
-                var produto = new Produto
-                {
-                    Nome = cadastro.Nome,
-                    Descricao = cadastro.Descricao,
-                };
-
-                if (cadastro.IdFornecedor != null)
-                {
-                    produto.FornecedorId = (long)cadastro.IdFornecedor;
-                }
-
-                _contexto.Produtos.Add(produto);
-                _contexto.SaveChanges();
-
-                cadastro.Id = produto.Id;
-
-                return StatusCode(201, new { idProduto = cadastro.Id });
-            }
-            catch(Exception)
-            {
-                return StatusCode(500);
-            }
+            return await _produtosServices.CadastrarProduto(produtoDto);
         }
-        
+
         // GET: api/produtos/{idProduto}
         [HttpGet("{idProduto}")]
-        public ActionResult<ProdutosResponse> ObterPelaId(long idProduto)
+        public async Task<ActionResult> ConsultarProduto(long idProduto)
         {
-            try
-            {
-                var produto = _contexto.Produtos
-                                .FirstOrDefault(tb_produtos => tb_produtos.Id == idProduto);
-
-                if (produto == null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(produto);
-            }
-            catch(Exception)
-            {
-                return StatusCode(500);
-            }
-        }
-
-        // GET: api/produtos/
-        [HttpGet]
-        public ActionResult<IEnumerable<ProdutosResponse>> ObterLista()
-        {
-            try
-            {
-                var produtos = _contexto.Produtos.ToList();
-
-                return Ok(produtos);
-            }
-            catch(Exception)
-            {
-                return StatusCode(500);
-            }
+            return await _produtosServices.ConsultarProduto(idProduto);
         }
     }
 }
