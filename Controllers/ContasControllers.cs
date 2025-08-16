@@ -4,6 +4,9 @@ using Models;
 using Models.HttpRequests;
 using Models.HttpResponse;
 using Microsoft.EntityFrameworkCore;
+using PetHealth.Dtos;
+using Microsoft.Exchange.WebServices.Data;
+using PetHealth.Services.Abstracts;
 
 namespace Controllers
 {
@@ -11,112 +14,28 @@ namespace Controllers
     [ApiController]
     public class ContasController : ControllerBase
     {
-        private readonly PetHealthDbContext _contexto;
+        private readonly IUsuarioServices _usuarioServices;
 
-        public ContasController(PetHealthDbContext contexto)
+        public ContasController(IUsuarioServices usuarioServices)
         {
-            _contexto = contexto;
+            _usuarioServices = usuarioServices;
         }
 
         // POST: api/contas/cadastrar
         [HttpPost("cadastrar")]
-        public ActionResult CadastrarUsuario([FromBody] UsuarioRequest cadastro)
+
+        public async Task<ActionResult> RegistrarUsuario([FromBody] UsuarioDTO usuarioDto)
         {
-            using (var transacaoDeCadastro = _contexto.Database.BeginTransaction())
-            {
-                try
-                {
-                    var endereco = new Endereco
-                    {
-                        Cep = cadastro.Endereco.Cep,
-                        Rua = cadastro.Endereco.Rua,
-                        Complemento = cadastro.Endereco.Complemento,
-                        Cidade = cadastro.Endereco.Cidade,
-                        Estado = cadastro.Endereco.Estado,
-                        Bairro = cadastro.Endereco.Bairro, // Correção aqui
-                        Numero = cadastro.Endereco.Numero
-                    };
-                    _contexto.Enderecos.Add(endereco);
-                    _contexto.SaveChanges();
-
-                    var usuario = new Usuario
-                    {
-                        Nome = cadastro.Nome,
-                        Sobrenome = cadastro.Sobrenome,
-                        Cpf = cadastro.Cpf,
-                        EnderecoId = endereco.Id
-                    };
-                    _contexto.Usuarios.Add(usuario);
-                    _contexto.SaveChanges();
-
-                    var credencial = new Credencial
-                    {
-                        Email = cadastro.Credencial.Email,
-                        Senha = cadastro.Credencial.Senha,
-                        UsuarioId = usuario.Id
-                    };
-                    _contexto.Credenciais.Add(credencial);
-                    _contexto.SaveChanges();
-
-                    transacaoDeCadastro.Commit();
-
-                    return StatusCode(201, new { idUsuario = usuario.Id });
-                }
-                catch (DbUpdateException dbEx)
-                {
-                    transacaoDeCadastro.Rollback();
-                    return StatusCode(500, new { mensagem = "Erro ao atualizar o banco de dados.", detalhes = dbEx.Message });
-                }
-                catch (Exception ex)
-                {
-                    transacaoDeCadastro.Rollback();
-                    return StatusCode(500, new { mensagem = "Erro interno no servidor.", detalhes = ex.Message });
-                }
-            }
+            return await _usuarioServices.RegistrarUsuario(usuarioDto);
         }
 
         // GET: api/contas/{idUsuario}
         [HttpGet("{idUsuario}")]
-        public ActionResult<UsuarioResponse> ObterContaPeloIdUsuario(long idUsuario)
+        public async Task<ActionResult<UsuarioResponse>> ConsultarUsuario(long idUsuario)
         {
-            try
-            {
-                var usuario = _contexto.Usuarios
-                                                .Include(tabelaUsuario => tabelaUsuario.Endereco)
-                                                .FirstOrDefault(tabelaUsuario => tabelaUsuario.Id == idUsuario);
-                bool usuarioNaoEncontrado = usuario == null;
-
-                if (usuarioNaoEncontrado)
-                {
-                    return NotFound();
-                }
-
-                return Ok(
-                    new UsuarioResponse
-                    {
-                        Id = usuario.Id,
-                        Nome = usuario.Nome,
-                        Sobrenome = usuario.Sobrenome,
-                        Cpf = usuario.Cpf,
-                        Endereco = new EnderecoResponse
-                        {
-                            Cep = usuario.Endereco.Cep,
-                            Rua = usuario.Endereco.Rua,
-                            Bairro = usuario.Endereco.Bairro,
-                            Numero = usuario.Endereco.Numero,
-                            Complemento = usuario.Endereco.Complemento,
-                            Estado = usuario.Endereco.Estado,
-                            Cidade = usuario.Endereco.Cidade
-
-                        }
-                    }
-                );
-
-            }
-            catch (Exception)
-            {
-                return StatusCode(500);
-            }
+            return await _usuarioServices.ConsultarUsuario(idUsuario);
         }
+
+
     }
 }

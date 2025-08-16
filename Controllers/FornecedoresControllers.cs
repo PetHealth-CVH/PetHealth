@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
 using Contexts;
 using Models;
 using Models.HttpRequests;
 using Models.HttpResponse;
+using PetHealth.Services.Abstracts;
+using PetHealth.Dtos;
 
 namespace Controllers
 {
@@ -12,76 +13,25 @@ namespace Controllers
     [ApiController]
     public class FornecedoresController : ControllerBase
     {
-        private readonly PetHealthDbContext _contexto;
+        private readonly IFornecedoresServices _fornecedorServices;
 
-        public FornecedoresController(PetHealthDbContext contexto)
+        public FornecedoresController(IFornecedoresServices fornecedoresServices)
         {
-            _contexto = contexto;
+            _fornecedorServices = fornecedoresServices;
         }
 
         // POST: api/fornecedores
         [HttpPost]
-        public ActionResult Cadastrar([FromBody] FornecedorRequest cadastro)
+        public async Task<ActionResult> Cadastrar(FornecedorDto fornecedorDto)
         {
-            try
-            {
-                var fornecedor = new Fornecedor
-                {
-                    Nome = cadastro.Nome,
-                    RazaoSocial = cadastro.RazaoSocial,
-                    Cnpj = cadastro.Cnpj,
-                    Telefone = cadastro.Telefone,
-                    Email = cadastro.Email
-                };
-                _contexto.Fornecedores.Add(fornecedor);
-                _contexto.SaveChanges();
-
-                cadastro.Id = fornecedor.Id;
-
-                return StatusCode(201, new { idFornecedor = cadastro.Id });
-            }
-            catch(Exception)
-            {
-                return StatusCode(500);
-            }
+            return await _fornecedorServices.Cadastrar(fornecedorDto);
         }
 
-        // GET: api/fornecedores/
-        [HttpGet]
-        public ActionResult<IEnumerable<FornecedorResponse>> ObterLista()
-        {
-            try
-            {
-                var fornecedores = _contexto.Fornecedores.ToList();
-
-                return Ok(fornecedores);
-            }
-            catch(Exception)
-            {
-                return StatusCode(500);
-            }
-        }
-        
-        // GET: api/fornecedores/{idProduto}
+        // GET: api/fornecedores/{idFornecedor}
         [HttpGet("{idFornecedor}")]
-        public ActionResult<FornecedorResponse> ObterPelaId(long idFornecedor)
+        public async Task<ActionResult> ObterPelaId(long idFornecedor)
         {
-            try
-            {
-                var fornecedor = _contexto.Fornecedores
-                                .FirstOrDefault(tb_fornecedores => tb_fornecedores.Id == idFornecedor);
-
-                if (fornecedor == null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(fornecedor);
-            }
-            catch(Exception)
-            {
-                return StatusCode(500);
-            }
+            return await _fornecedorServices.ObterPelaId(idFornecedor);
         }
     }
 }
